@@ -37,30 +37,6 @@
       },
       "MERCHANT_SIGNING_SECRET": {
         "description": "商户创建订单和系统回调验签密钥。旧版 MD5 和新版 HMAC-SHA256 都使用它。"
-      },
-      "TRONSCAN_API_KEY": {
-        "description": "可选。Tronscan API Key，用于 USDT-TRC20/TRX 扫链。"
-      },
-      "TRONGRID_API_KEY": {
-        "description": "可选。TronGrid API Key，用作 TRON 扫链备用源。"
-      },
-      "ETHERSCAN_API_KEY": {
-        "description": "可选。Etherscan V2 API Key，用于 ERC20、Polygon、BSC、Arbitrum 扫链。"
-      },
-      "TURNSTILE_SECRET_KEY": {
-        "description": "可选。Cloudflare Turnstile 服务端密钥，用于后台登录人机验证。"
-      },
-      "TURNSTILE_SITE_KEY": {
-        "description": "可选。Cloudflare Turnstile 站点 Key，会暴露给登录页前端。"
-      },
-      "TELEGRAM_BOT_TOKEN": {
-        "description": "可选。Telegram Bot Token，用于支付成功或回调失败通知。"
-      },
-      "TELEGRAM_CHAT_ID": {
-        "description": "可选。Telegram Chat ID，用于接收通知。"
-      },
-      "BARK_KEY": {
-        "description": "可选。Bark 推送 Key，用于移动端通知。"
       }
     }
   }
