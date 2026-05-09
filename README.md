@@ -1,6 +1,6 @@
 # UPay Pro Cloudflare Edition
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/YOUR_GITHUB_USERNAME/YOUR_REPOSITORY/tree/main/cloudflare)
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/feiling123/UPAY_PRO_CF/tree/main)
 
 UPay Pro Cloudflare Edition 是对原 Go/Gin + SQLite + Redis/asynq 版本的 Cloudflare 原生全量重构。目标是让 Cloudflare 免费用户也能完整部署一个低成本支付网关，支持 100+ 用户同时支付处理。
 
@@ -137,9 +137,9 @@ npm run typecheck
 
 使用 README 顶部的 **Deploy to Cloudflare** 按钮，让部署者把公开 GitHub 仓库一键部署到自己的 Cloudflare 账号。
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/YOUR_GITHUB_USERNAME/YOUR_REPOSITORY/tree/main/cloudflare)
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/feiling123/UPAY_PRO_CF/tree/main)
 
-发布到你自己的仓库后，把按钮 URL 中的 `YOUR_GITHUB_USERNAME/YOUR_REPOSITORY` 改成实际公开仓库地址。
+发布到你自己的仓库后，把按钮 URL 中的 `feiling123/UPAY_PRO_CF` 改成实际公开仓库地址。
 
 仓库 URL 必须和你上传到 GitHub 的目录结构一致：
 
@@ -178,7 +178,7 @@ Cloudflare Worker + Static Assets + D1 + Durable Objects + Queues + Cron
 
 ### 一键部署流程
 
-1. 将 `cloudflare/README.md` 顶部按钮 URL 中的 `YOUR_GITHUB_USERNAME/YOUR_REPOSITORY` 替换为你的公开仓库地址；如果 `cloudflare/` 是仓库子目录，保留 `/tree/main/cloudflare`，如果 `cloudflare/` 内容已上传为仓库根目录，则删除 `/tree/main/cloudflare`。
+1. 将 `cloudflare/README.md` 顶部按钮 URL 中的 `feiling123/UPAY_PRO_CF` 替换为你的公开仓库地址；如果 `cloudflare/` 是仓库子目录，保留 `/tree/main/cloudflare`，如果 `cloudflare/` 内容已上传为仓库根目录，则删除 `/tree/main/cloudflare`。
 2. 打开 README 顶部的 **Deploy to Cloudflare**。
 3. 按页面提示连接 GitHub 或 GitLab。
 4. 确认 Cloudflare 创建的新仓库、Worker 名称、D1 名称、Queue 名称。
@@ -218,7 +218,7 @@ Pages ZIP 静态资源
 
 Deploy to Cloudflare 会自动完成代码构建、Worker 创建、静态资源上传和资源绑定，但不会替你决定业务密钥和安全策略。首次部署后必须手动完成：
 
-1. 在 README 顶部按钮 URL 中替换 `YOUR_GITHUB_USERNAME/YOUR_REPOSITORY`，并按实际仓库结构决定是否保留 `/tree/main/cloudflare` 子目录。
+1. 在 README 顶部按钮 URL 中替换 `feiling123/UPAY_PRO_CF`，并按实际仓库结构决定是否保留 `/tree/main/cloudflare` 子目录。
 2. 在 Cloudflare 部署页面确认 Worker 名称、D1 名称和 Queue 名称。
 3. 在 Worker Settings 配置必填 secrets：`ADMIN_JWT_SECRET`、`CONFIG_ENCRYPTION_KEY`、`MERCHANT_SIGNING_SECRET`。
 4. 配置首次管理员 secrets：`ADMIN_INITIAL_USERNAME`、`ADMIN_INITIAL_PASSWORD`，登录创建管理员后可删除或轮换。
