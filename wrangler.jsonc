@@ -55,6 +55,7 @@
   "vars": {
     "APP_NAME": "UPay Pro",
     "APP_URL": "https://example.com",
+    "ADMIN_PATH": "backend_admin",
     "ORDER_EXPIRATION_SECONDS": "300",
     "PAY_STATUS_MIN_INTERVAL_SECONDS": "8",
     "CALLBACK_MAX_ATTEMPTS": "5",

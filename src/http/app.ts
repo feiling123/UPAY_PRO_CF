@@ -13,6 +13,7 @@ import { centsToDecimal, DEFAULT_INCREMENT_UNITS, parseAmountCents, rateToScaled
 import { nowMs, seconds } from "../lib/time";
 import { randomId, tradeId } from "../lib/crypto";
 import { ConfigError, isStrongSecret, secretPolicyMessage } from "../lib/secrets";
+import { ensureSchema } from "../lib/schema";
 import { serializeMerchant, serializeOrder, serializeSettings, serializeUser, serializeWallet } from "./serializers";
 
 type AppEnv = { Bindings: Env; Variables: { session?: SessionClaims } };
@@ -38,7 +39,7 @@ app.use("*", async (c, next) => {
 
 app.get("/api/health", async (c) => {
   try {
-    await c.env.DB.prepare("SELECT id FROM settings WHERE id = 1").first();
+    await ensureSchema(c.env);
     return c.json({ ok: true, service: "upay-pro-cloudflare", database: true, time: new Date().toISOString() });
   } catch {
     return c.json({ ok: false, service: "upay-pro-cloudflare", database: false, message: "D1 migrations not applied", time: new Date().toISOString() }, 500);
@@ -60,15 +61,9 @@ app.post("/login", async (c) => {
   const turnstileOk = await verifyTurnstile(c.env, body.turnstile_token, ip);
   if (!turnstileOk) return jsonMessage(c, "人机验证失败", 403);
 
+  await ensureSchema(c.env);
   const store = new Store(c.env);
-  let user = await store.userByUsername(body.username);
-  if (!user) {
-    const first = await store.firstUser();
-    if (!first && c.env.ADMIN_INITIAL_USERNAME === body.username && c.env.ADMIN_INITIAL_PASSWORD === body.password) {
-      await store.createUser(body.username, await hashPassword(body.password));
-      user = await store.userByUsername(body.username);
-    }
-  }
+  const user = await store.userByUsername(body.username);
   if (!user || !(await verifyPassword(body.password, user.password_hash))) return jsonMessage(c, "用户名或密码错误", 400);
   const token = await createSession(c.env, { sub: String(user.id), username: user.username, role: user.role });
   setSessionCookie(c, token);

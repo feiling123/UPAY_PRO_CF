@@ -39,13 +39,7 @@
         "description": "商户创建订单和系统回调验签密钥。旧版 MD5 和新版 HMAC-SHA256 都使用它。"
       },
       "ADMIN_PATH": {
-        "description": "后台隐藏入口路径，必须在 Cloudflare Worker Variables 中设置，例如 `/a9f3-upay-console`。不要使用 /admin、/login、/api、/pay 等保留路径。"
-      },
-      "ADMIN_INITIAL_USERNAME": {
-        "description": "首次登录时自动创建的管理员用户名。创建管理员后可移除。"
-      },
-      "ADMIN_INITIAL_PASSWORD": {
-        "description": "首次登录时自动创建的管理员密码。创建管理员后请移除或更换。"
+        "description": "后台隐藏入口路径。默认 backend_admin，可在 Cloudflare Worker Variables 中改成 `/a9f3-upay-console` 等随机路径。不要使用 /admin、/login、/api、/pay 等保留路径。"
       },
       "TRONSCAN_API_KEY": {
         "description": "可选。Tronscan API Key，用于 USDT-TRC20/TRX 扫链。"

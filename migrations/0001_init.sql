@@ -124,6 +124,20 @@ CREATE UNIQUE INDEX IF NOT EXISTS idx_orders_block_tx_unique
   WHERE block_transaction_id IS NOT NULL AND block_transaction_id != '';
 CREATE INDEX IF NOT EXISTS idx_callback_next ON callback_jobs(status, next_attempt_at_ms);
 
+INSERT OR IGNORE INTO users (
+  username,
+  password_hash,
+  role,
+  created_at_ms,
+  updated_at_ms
+) VALUES (
+  'admin',
+  'pbkdf2-sha256$120000$CBZNeU3Y1LbqU2qw-fcu_Q$fShrFiJJQfzklQLc9GS0J3VRGqgPWOPrxwRxGHkvDoc',
+  'admin',
+  unixepoch('now') * 1000,
+  unixepoch('now') * 1000
+);
+
 INSERT OR IGNORE INTO settings (
   id,
   app_url,

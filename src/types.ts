@@ -21,8 +21,6 @@ export interface Env {
   TURNSTILE_REQUIRED?: string;
   TURNSTILE_SITE_KEY?: string;
   TURNSTILE_SECRET_KEY?: string;
-  ADMIN_INITIAL_USERNAME?: string;
-  ADMIN_INITIAL_PASSWORD?: string;
   ADMIN_JWT_SECRET?: string;
   CONFIG_ENCRYPTION_KEY?: string;
   MERCHANT_SIGNING_SECRET?: string;
