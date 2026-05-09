@@ -4,9 +4,6 @@ ADMIN_JWT_SECRET=
 CONFIG_ENCRYPTION_KEY=
 MERCHANT_SIGNING_SECRET=
 
-# Hidden admin entry path. Default in wrangler.jsonc is backend_admin.
-ADMIN_PATH=backend_admin
-
 # Optional chain API keys.
 TRONSCAN_API_KEY=
 TRONGRID_API_KEY=
