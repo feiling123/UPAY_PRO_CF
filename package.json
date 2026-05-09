@@ -1,0 +1,76 @@
+{
+  "name": "upay-pro-cloudflare",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Cloudflare-native UPay Pro rewrite for Workers Static Assets, D1, Durable Objects, Queues, and Cron.",
+  "scripts": {
+    "build": "npm run copy:vendor && tsc --noEmit",
+    "copy:vendor": "node scripts/copy-vendor.mjs",
+    "typecheck": "tsc --noEmit",
+    "dev": "wrangler dev --config wrangler.jsonc",
+    "deploy": "npm run build && npm run db:migrations:apply && wrangler deploy --config wrangler.jsonc",
+    "db:migrations:apply": "wrangler d1 migrations apply DB --remote --config wrangler.jsonc",
+    "migrate": "npm run db:migrations:apply",
+    "db:migrate:local": "wrangler d1 migrations apply DB --local --config wrangler.jsonc",
+    "db:migrate:remote": "wrangler d1 migrations apply DB --remote --config wrangler.jsonc"
+  },
+  "dependencies": {
+    "blueimp-md5": "^2.19.0",
+    "hono": "^4.8.0",
+    "qrcode-generator": "^1.4.4",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260509.0",
+    "@types/blueimp-md5": "^2.18.0",
+    "typescript": "^5.9.0",
+    "wrangler": "^4.15.0"
+  },
+  "cloudflare": {
+    "bindings": {
+      "ADMIN_JWT_SECRET": {
+        "description": "管理员登录 Cookie 签名密钥。建议使用随机字符串，例如 `openssl rand -hex 32`。"
+      },
+      "CONFIG_ENCRYPTION_KEY": {
+        "description": "D1 中敏感配置的 AES-GCM 加密主密钥。建议使用随机字符串，例如 `openssl rand -hex 32`。"
+      },
+      "MERCHANT_SIGNING_SECRET": {
+        "description": "商户创建订单和系统回调验签密钥。旧版 MD5 和新版 HMAC-SHA256 都使用它。"
+      },
+      "ADMIN_PATH": {
+        "description": "后台隐藏入口路径，必须在 Cloudflare Worker Variables 中设置，例如 `/a9f3-upay-console`。不要使用 /admin、/login、/api、/pay 等保留路径。"
+      },
+      "ADMIN_INITIAL_USERNAME": {
+        "description": "首次登录时自动创建的管理员用户名。创建管理员后可移除。"
+      },
+      "ADMIN_INITIAL_PASSWORD": {
+        "description": "首次登录时自动创建的管理员密码。创建管理员后请移除或更换。"
+      },
+      "TRONSCAN_API_KEY": {
+        "description": "可选。Tronscan API Key，用于 USDT-TRC20/TRX 扫链。"
+      },
+      "TRONGRID_API_KEY": {
+        "description": "可选。TronGrid API Key，用作 TRON 扫链备用源。"
+      },
+      "ETHERSCAN_API_KEY": {
+        "description": "可选。Etherscan V2 API Key，用于 ERC20、Polygon、BSC、Arbitrum 扫链。"
+      },
+      "TURNSTILE_SECRET_KEY": {
+        "description": "可选。Cloudflare Turnstile 服务端密钥，用于后台登录人机验证。"
+      },
+      "TURNSTILE_SITE_KEY": {
+        "description": "可选。Cloudflare Turnstile 站点 Key，会暴露给登录页前端。"
+      },
+      "TELEGRAM_BOT_TOKEN": {
+        "description": "可选。Telegram Bot Token，用于支付成功或回调失败通知。"
+      },
+      "TELEGRAM_CHAT_ID": {
+        "description": "可选。Telegram Chat ID，用于接收通知。"
+      },
+      "BARK_KEY": {
+        "description": "可选。Bark 推送 Key，用于移动端通知。"
+      }
+    }
+  }
+}

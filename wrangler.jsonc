@@ -1,0 +1,74 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "upay-pro",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-05-09",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "html_handling": "none",
+    "not_found_handling": "404-page",
+    "run_worker_first": ["/*", "!/assets/*", "!/js/*", "!/vendor/*"]
+  },
+  "observability": {
+    "enabled": true
+  },
+  "secrets": {
+    "required": [
+      "ADMIN_JWT_SECRET",
+      "CONFIG_ENCRYPTION_KEY",
+      "MERCHANT_SIGNING_SECRET"
+    ]
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "upay_pro",
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "preview_database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "queues": {
+    "producers": [
+      { "binding": "ORDER_SCAN_QUEUE", "queue": "upay-order-scan" },
+      { "binding": "ORDER_EXPIRATION_QUEUE", "queue": "upay-order-expiration" },
+      { "binding": "CALLBACK_QUEUE", "queue": "upay-callback-notify" }
+    ],
+    "consumers": [
+      { "queue": "upay-order-scan", "max_batch_size": 5, "max_batch_timeout": 10, "retry_delay": 30 },
+      { "queue": "upay-order-expiration", "max_batch_size": 10, "max_batch_timeout": 10 },
+      { "queue": "upay-callback-notify", "max_batch_size": 10, "max_batch_timeout": 10, "retry_delay": 60 }
+    ]
+  },
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "WALLET_ALLOCATOR",
+        "class_name": "WalletAllocator"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["WalletAllocator"]
+    }
+  ],
+  "triggers": {
+    "crons": ["* * * * *", "*/10 * * * *"]
+  },
+  "vars": {
+    "APP_NAME": "UPay Pro",
+    "APP_URL": "https://example.com",
+    "ORDER_EXPIRATION_SECONDS": "300",
+    "PAY_STATUS_MIN_INTERVAL_SECONDS": "8",
+    "CALLBACK_MAX_ATTEMPTS": "5",
+    "CRON_SCAN_ORDER_LIMIT": "100",
+    "CRON_SCAN_GROUP_LIMIT": "20",
+    "FREE_TIER_MODE": "true",
+    "LEGACY_MD5_ENABLED": "true",
+    "TURNSTILE_REQUIRED": "false"
+  }
+}

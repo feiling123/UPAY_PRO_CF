@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title data-i18n="login.title">UPay Pro 管理后台</title>
+    <link rel="stylesheet" href="/assets/app.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">UPay Pro Cloudflare</div>
+      <button id="logoutBtn" data-i18n="nav.logout">退出</button>
+    </header>
+    <main class="shell">
+      <section class="grid stats" id="stats"></section>
+      <nav class="tabs">
+        <button data-tab="orders" class="active" data-i18n="tabs.orders">订单</button>
+        <button data-tab="wallets" data-i18n="tabs.wallets">钱包</button>
+        <button data-tab="settings" data-i18n="tabs.settings">设置</button>
+        <button data-tab="apikeys" data-i18n="tabs.apikeys">API Key</button>
+        <button data-tab="merchants" data-i18n="tabs.merchants">商户</button>
+        <button data-tab="tools" data-i18n="tabs.tools">测试订单</button>
+        <button data-tab="users" data-i18n="tabs.users">用户</button>
+      </nav>
+      <section id="orders" class="panel tab"></section>
+      <section id="wallets" class="panel tab hidden"></section>
+      <section id="settings" class="panel tab hidden"></section>
+      <section id="apikeys" class="panel tab hidden"></section>
+      <section id="merchants" class="panel tab hidden"></section>
+      <section id="tools" class="panel tab hidden"></section>
+      <section id="users" class="panel tab hidden"></section>
+    </main>
+    <script type="module" src="/js/admin.js"></script>
+  </body>
+</html>

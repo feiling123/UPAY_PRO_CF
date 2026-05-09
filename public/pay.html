@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>UPay Pro</title>
+    <link rel="stylesheet" href="/assets/app.css" />
+    <script src="/vendor/qrcode.js"></script>
+  </head>
+  <body>
+    <main class="shell">
+      <section class="panel pay-card">
+        <div id="loading" data-i18n="pay.loading">正在加载订单...</div>
+        <div id="payment" class="hidden">
+          <div class="muted" id="currency"></div>
+          <div class="amount"><span id="amount"></span></div>
+          <div id="qr"></div>
+          <p class="muted" data-i18n="pay.instructions">请向以下钱包地址支付精确金额。金额不一致将无法自动确认。</p>
+          <div class="address" id="address"></div>
+          <div class="actions" style="justify-content: center">
+            <button id="copyBtn" data-i18n="pay.copy">复制地址</button>
+            <button id="refreshBtn" class="primary" data-i18n="pay.refresh">我已付款，立即检查</button>
+          </div>
+          <p><span data-i18n="pay.trade_id">订单号：</span><strong id="tradeId"></strong></p>
+          <p><span data-i18n="pay.remaining">剩余时间：</span><strong id="countdown"></strong></p>
+          <div id="status" class="notice" data-i18n="pay.waiting">等待支付</div>
+        </div>
+      </section>
+    </main>
+    <script type="module" src="/js/pay.js"></script>
+  </body>
+</html>

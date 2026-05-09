@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title data-i18n="login.title">登录 - UPay Pro</title>
+    <link rel="stylesheet" href="/assets/app.css" />
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  </head>
+  <body>
+    <main class="shell narrow">
+      <section class="panel">
+        <h1 data-i18n="login.title">管理后台登录</h1>
+        <p class="muted" data-i18n="login.hint">首次部署时使用 Worker Secrets 中的初始管理员账号登录，系统会自动创建管理员。</p>
+        <form id="loginForm" class="grid">
+          <label><span data-i18n="login.username">用户名</span><input name="username" autocomplete="username" required /></label>
+          <label><span data-i18n="login.password">密码</span><input name="password" type="password" autocomplete="current-password" required /></label>
+          <div id="turnstile"></div>
+          <button class="primary" type="submit" data-i18n="login.submit">登录</button>
+          <div id="message" class="notice hidden"></div>
+        </form>
+      </section>
+    </main>
+    <script type="module" src="/js/login.js"></script>
+  </body>
+</html>
