@@ -38,9 +38,6 @@
       "MERCHANT_SIGNING_SECRET": {
         "description": "商户创建订单和系统回调验签密钥。旧版 MD5 和新版 HMAC-SHA256 都使用它。"
       },
-      "ADMIN_PATH": {
-        "description": "后台隐藏入口路径。默认 backend_admin，可在 Cloudflare Worker Variables 中改成 `/a9f3-upay-console` 等随机路径。不要使用 /admin、/login、/api、/pay 等保留路径。"
-      },
       "TRONSCAN_API_KEY": {
         "description": "可选。Tronscan API Key，用于 USDT-TRC20/TRX 扫链。"
       },
