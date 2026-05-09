@@ -14,13 +14,6 @@
   "observability": {
     "enabled": true
   },
-  "secrets": {
-    "required": [
-      "ADMIN_JWT_SECRET",
-      "CONFIG_ENCRYPTION_KEY",
-      "MERCHANT_SIGNING_SECRET"
-    ]
-  },
   "d1_databases": [
     {
       "binding": "DB",
