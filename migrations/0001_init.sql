@@ -132,7 +132,7 @@ INSERT OR IGNORE INTO users (
   updated_at_ms
 ) VALUES (
   'admin',
-  'pbkdf2-sha256$120000$CBZNeU3Y1LbqU2qw-fcu_Q$fShrFiJJQfzklQLc9GS0J3VRGqgPWOPrxwRxGHkvDoc',
+  'md5$7488e331b8b64e5794da3fa4eb10ad5d',
   'admin',
   unixepoch('now') * 1000,
   unixepoch('now') * 1000

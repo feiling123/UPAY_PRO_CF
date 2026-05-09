@@ -20,6 +20,7 @@ type AppEnv = { Bindings: Env; Variables: { session?: SessionClaims } };
 export const app = new Hono<AppEnv>();
 
 app.onError((error, c) => {
+  logUnhandledError(c.req.path, error);
   if (error instanceof ConfigError) {
     return jsonMessage(c, `服务配置错误：${error.message}`, 500);
   }
@@ -28,6 +29,16 @@ app.onError((error, c) => {
   }
   return jsonMessage(c, "服务内部错误，请查看 Worker 日志", 500);
 });
+
+function logUnhandledError(path: string, error: unknown): void {
+  const err = error instanceof Error ? error : new Error(String(error));
+  console.error("upay worker error", {
+    path,
+    name: err.name,
+    message: err.message,
+    stack: err.stack
+  });
+}
 
 app.use("*", async (c, next) => {
   const path = new URL(c.req.url).pathname;
