@@ -12,11 +12,21 @@ import { getCurrency, listCurrencyCodes } from "../lib/currencies";
 import { centsToDecimal, DEFAULT_INCREMENT_UNITS, parseAmountCents, rateToScaled, unitsToToken } from "../lib/money";
 import { nowMs, seconds } from "../lib/time";
 import { randomId, tradeId } from "../lib/crypto";
-import { isStrongSecret, secretPolicyMessage } from "../lib/secrets";
+import { ConfigError, isStrongSecret, secretPolicyMessage } from "../lib/secrets";
 import { serializeMerchant, serializeOrder, serializeSettings, serializeUser, serializeWallet } from "./serializers";
 
 type AppEnv = { Bindings: Env; Variables: { session?: SessionClaims } };
 export const app = new Hono<AppEnv>();
+
+app.onError((error, c) => {
+  if (error instanceof ConfigError) {
+    return jsonMessage(c, `服务配置错误：${error.message}`, 500);
+  }
+  if (String(error.message || error).includes("no such table")) {
+    return jsonMessage(c, "D1 数据库未初始化，请先执行 D1 migrations", 500);
+  }
+  return jsonMessage(c, "服务内部错误，请查看 Worker 日志", 500);
+});
 
 app.use("*", async (c, next) => {
   const path = new URL(c.req.url).pathname;
@@ -26,7 +36,14 @@ app.use("*", async (c, next) => {
   return undefined;
 });
 
-app.get("/api/health", (c) => c.json({ ok: true, service: "upay-pro-cloudflare", time: new Date().toISOString() }));
+app.get("/api/health", async (c) => {
+  try {
+    await c.env.DB.prepare("SELECT id FROM settings WHERE id = 1").first();
+    return c.json({ ok: true, service: "upay-pro-cloudflare", database: true, time: new Date().toISOString() });
+  } catch {
+    return c.json({ ok: false, service: "upay-pro-cloudflare", database: false, message: "D1 migrations not applied", time: new Date().toISOString() }, 500);
+  }
+});
 app.get("/api/meta", (c) => c.json({ currencies: listCurrencyCodes(), turnstile_site_key: c.env.TURNSTILE_SITE_KEY || "" }));
 
 app.get("/admin", async (c) => serveAdminEntry(c));

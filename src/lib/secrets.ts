@@ -2,6 +2,13 @@ const SECRET_MIN_LENGTH = 32;
 const SECRET_MAX_LENGTH = 128;
 const PRINTABLE_ASCII_NO_SPACE = /^[!-~]+$/;
 
+export class ConfigError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "ConfigError";
+  }
+}
+
 export function isStrongSecret(value: unknown): value is string {
   return typeof value === "string"
     && value.length >= SECRET_MIN_LENGTH
@@ -11,7 +18,7 @@ export function isStrongSecret(value: unknown): value is string {
 
 export function requiredSecret(name: string, value: unknown): string {
   if (!isStrongSecret(value)) {
-    throw new Error(`${name} must be ${SECRET_MIN_LENGTH}-${SECRET_MAX_LENGTH} printable ASCII characters without whitespace`);
+    throw new ConfigError(`${name} must be ${SECRET_MIN_LENGTH}-${SECRET_MAX_LENGTH} printable ASCII characters without whitespace`);
   }
   return value;
 }
