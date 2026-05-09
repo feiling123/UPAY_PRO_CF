@@ -1,0 +1,45 @@
+# Required production secrets / variables for Deploy to Cloudflare.
+# Use 32-128 printable ASCII characters without whitespace for the three secrets below.
+ADMIN_JWT_SECRET=
+CONFIG_ENCRYPTION_KEY=
+MERCHANT_SIGNING_SECRET=
+
+# Hidden admin entry path. Default in wrangler.jsonc is backend_admin.
+ADMIN_PATH=backend_admin
+
+# Optional chain API keys.
+TRONSCAN_API_KEY=
+TRONGRID_API_KEY=
+ETHERSCAN_API_KEY=
+
+# Optional login challenge.
+TURNSTILE_SITE_KEY=
+TURNSTILE_SECRET_KEY=
+
+# Optional notifications.
+TELEGRAM_BOT_TOKEN=
+TELEGRAM_CHAT_ID=
+BARK_KEY=
+whoami@whoamiMac-mini cloudflare % cat .dev.vars.example
+# Required production secrets / variables for Deploy to Cloudflare.
+# Use 32-128 printable ASCII characters without whitespace for the three secrets below.
+ADMIN_JWT_SECRET=
+CONFIG_ENCRYPTION_KEY=
+MERCHANT_SIGNING_SECRET=
+
+# Hidden admin entry path. Default in wrangler.jsonc is backend_admin.
+ADMIN_PATH=backend_admin
+
+# Optional chain API keys.
+TRONSCAN_API_KEY=
+TRONGRID_API_KEY=
+ETHERSCAN_API_KEY=
+
+# Optional login challenge.
+TURNSTILE_SITE_KEY=
+TURNSTILE_SECRET_KEY=
+
+# Optional notifications.
+TELEGRAM_BOT_TOKEN=
+TELEGRAM_CHAT_ID=
+BARK_KEY=
